@@ -1,0 +1,9 @@
+[project]
+name = "ai-test-case-generator-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+# Tells Vercel's Python runtime where the FastAPI `app` instance lives,
+# since it's nested under app/main.py rather than at the project root.
+[tool.vercel]
+entrypoint = "app.main:app"

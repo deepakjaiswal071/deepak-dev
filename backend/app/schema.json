@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TestCaseCollection",
+  "type": "object",
+  "properties": {
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "scenario": { "type": "string" },
+          "preconditions": { "type": "string" },
+          "steps": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "expected_result": { "type": "string" },
+          "type": { "type": "string", "enum": ["Positive", "Negative", "Boundary"] }
+        },
+        "required": ["id", "scenario", "preconditions", "steps", "expected_result", "type"]
+      }
+    }
+  },
+  "required": ["test_cases"]
+}
