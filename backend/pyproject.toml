@@ -5,3 +5,8 @@ requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.117.1",
 ]
+
+#  Tells Vercel's Python runtime where the FastAPI `app` instance lives,
+# since it's nested under app/main.py rather than at the project root.
+[tool.vercel]
+entrypoint = "app.main:app"
