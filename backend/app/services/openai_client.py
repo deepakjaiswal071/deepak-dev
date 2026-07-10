@@ -7,8 +7,12 @@ from openai import APIError, APIStatusError, APITimeoutError, OpenAI
 
 from app.config import Settings
 
-_SCHEMA_PATH = Path(__file__).resolve().parents[3] / ".claude" / "schema.json"
-_MAX_ATTEMPTS = 3
+# Vendored copy of .claude/schema.json — kept in sync by test_schema_sync.py.
+# Loaded relative to this package (not the repo root) so the client works
+# unchanged whether the whole repo or just backend/ is deployed.
+_SCHEMA_PATH = Path(__file__).resolve().parents[1] / "schema.json"
+_MAX_ATTEMPTS = 2
+_REQUEST_TIMEOUT_SECONDS = 20
 
 
 class OpenAIGenerationError(Exception):
@@ -75,7 +79,7 @@ class OpenAIClient:
                             "strict": True,
                         },
                     },
-                    timeout=30,
+                    timeout=_REQUEST_TIMEOUT_SECONDS,
                 )
                 return response.choices[0].message.content or ""
             except APITimeoutError as exc:
